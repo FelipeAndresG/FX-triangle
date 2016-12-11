@@ -1,0 +1,49 @@
+\beamer@endinputifotherversion {3.36pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {1}{Introduction}{3}{Introduction}{0}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\slideentry {1}{0}{1}{3/5}{}{0}}
+\headcommand {\beamer@framepages {3}{5}}
+\headcommand {\sectionentry {2}{General Backgroud}{6}{General Backgroud}{0}}
+\headcommand {\beamer@sectionpages {3}{5}}
+\headcommand {\beamer@subsectionpages {3}{5}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{6}{Garman Kohlhagen model}}\headcommand {\beamer@subsectionpages {6}{5}}
+\headcommand {\slideentry {2}{1}{1}{6/9}{Garman Kohlhagen model}{0}}
+\headcommand {\beamer@framepages {6}{9}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{10}{Dupire's formula}}\headcommand {\beamer@subsectionpages {6}{9}}
+\headcommand {\slideentry {2}{2}{1}{10/12}{Dupire's formula}{0}}
+\headcommand {\beamer@framepages {10}{12}}
+\headcommand {\sectionentry {3}{FX triangle smile calibration}{13}{FX triangle smile calibration}{0}}
+\headcommand {\beamer@sectionpages {6}{12}}
+\headcommand {\beamer@subsectionpages {10}{12}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{13}{Local correlation model}}\headcommand {\beamer@subsectionpages {13}{12}}
+\headcommand {\slideentry {3}{1}{1}{13/15}{Local correlation model}{0}}
+\headcommand {\beamer@framepages {13}{15}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{16}{Calibration condition}}\headcommand {\beamer@subsectionpages {13}{15}}
+\headcommand {\slideentry {3}{2}{1}{16/17}{Calibration condition}{0}}
+\headcommand {\beamer@framepages {16}{17}}
+\headcommand {\slideentry {3}{2}{2}{18/19}{Calibration condition}{0}}
+\headcommand {\beamer@framepages {18}{19}}
+\headcommand {\slideentry {3}{2}{3}{20/21}{Calibration condition}{0}}
+\headcommand {\beamer@framepages {20}{21}}
+\headcommand {\slideentry {3}{2}{4}{22/22}{Calibration condition}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{23}{Numerical solution}}\headcommand {\beamer@subsectionpages {16}{22}}
+\headcommand {\slideentry {3}{3}{1}{23/23}{Numerical solution}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\sectionentry {4}{Conclusion}{24}{Conclusion}{0}}
+\headcommand {\beamer@sectionpages {13}{23}}
+\headcommand {\beamer@subsectionpages {23}{23}}
+\headcommand {\slideentry {4}{0}{1}{24/26}{}{0}}
+\headcommand {\beamer@framepages {24}{26}}
+\headcommand {\slideentry {4}{0}{2}{27/27}{}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\beamer@partpages {1}{27}}
+\headcommand {\beamer@subsectionpages {24}{27}}
+\headcommand {\beamer@sectionpages {24}{27}}
+\headcommand {\beamer@documentpages {27}}
+\headcommand {\def \inserttotalframenumber {13}}

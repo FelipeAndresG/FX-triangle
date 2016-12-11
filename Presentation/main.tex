@@ -1,0 +1,211 @@
+\documentclass[10pt]{beamer} % if presentation
+%\documentclass[10pt, handout]{beamer} % if hadout
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb,noconfigs]{babel}
+\usepackage{lmodern,textcomp,ifthen,graphicx,booktabs,csvsimple,amsmath,amssymb}
+\usepackage{beamerx}
+
+%% Tamanho figuras
+\newlength{\mylength}
+\setlength{\mylength}{0.47\textwidth}
+
+\begin{document}
+	
+	%%% - Titulo del beamer %%
+	\title[
+    \begin{tabular}{l l}
+    Tuteur : &Benjamin Jourdain \\
+    Élèves : &Lucas Furquim \\
+    &Felipe García \\
+    \end{tabular}
+    ]{Calibration d'un triangle à taux de change}[Calibration\\ des taux]
+	\author[]{Projet 3A}
+		
+	\maketitle
+	%--- Next Frame ---%
+	
+	\begin{frame}[t]{Plan}
+		\tableofcontents
+	\end{frame}
+	%--- Next Frame ---%
+	
+	\section{Introduction} % (fold)
+	\label{sec:introduction}
+
+	\begin{frame}[t]{Context}
+		We consider the calibration problem between two exchange rates 
+		\begin{itemize}
+			\item<+-> $S^1 = $ EUR/USD, $S^2 = $ GBP/USD
+			\item<+-> Under the condition $S^{12} = $ EUR / GBP $=S^1/S^2$
+			\item<+-> Three local volatility surfaces : $\sigma_1(t, S^1), \sigma_2(t, S^2)$ and $\sigma_{12}(t, S^{12})$
+		\end{itemize}		
+	\end{frame}
+	% section introduction (end)
+    
+    \section{General Backgroud}
+    
+        \subsection{Garman Kohlhagen model}
+        \begin{frame}[t]{Garman Kohlhagen model}
+    	\begin{itemize}
+    	\item<+-> FX rate model for $S^1 = $ EUR/USD
+        \begin{align*}
+        d S_t^1/S_t^1 &= (r_t^f - r_t^d) \:dt + \sigma_1(t,S_t^1)\:dW_t^1
+        \end{align*}
+        \item<+-> where $r_t^d$ is the domestic interest rate (USD) and $r_t^f$ is the foreign interest rate (EUR)
+        \item<+-> $W_t^{1}$ is a Brownian motion under $\mathbb{Q}^f$ the risk neutral measure of the USD dolar.
+        \item<+-> Calibration: adjust $\sigma_1$ with Dupire's formula.
+    	\end{itemize}
+    \end{frame}
+    
+    \subsection{Dupire's formula}
+    
+    \begin{frame}[t]{Dupire's formula}
+    
+    If we consider just the calibration problem  of one exchange rate
+    	\begin{itemize}
+    		\item<+-> $S^1$ = EUR/USD
+    		\item<+-> $dS_t = (r - d)S_tdt + \sigma_tS_tdW_t$. 
+            \item<+-> The Dupire's equation can be used to deduce the volatility function $\sigma(.,.)$ from option prices:     \begin{align*}
+    			\sigma(T,K) = \sqrt[]{2\frac{\frac{\partial C}{\partial T}+(r - d)K\frac{\partial C}{\partial K}}{K^2\frac{\partial^2C}{\partial K^2}}}
+    		\end{align*}
+    	\end{itemize}
+    \end{frame}
+    
+    \section{FX triangle smile calibration}
+    
+    \subsection{Local correlation model}
+    \begin{frame}[t]{The FX triangle calibration problem}
+    		\begin{itemize}
+			\item<+-> Local correlation model:
+            \begin{align*}
+            d S_t^1/S_t^1 &= (r_t^d - r_t^1) \:dt + \sigma_1(t,S_t^1)\:dW_t^1 \\
+            d S_t^2/S_t^2 &= (r_t^d - r_t^2) \:dt + \sigma_2(t,S_t^2)\:dW_t^2 \\
+            d \left\langle W^1,W^2 \right\rangle_t &= \rho(t,S_t^1,S_t^2)\:dt
+            \end{align*}
+			\item<+-> Calibration condition
+            \begin{align*}
+            & \mathbb{E}^{\mathbb{Q}^f}_{\rho} \left[ \sigma_1^2(t, S_t^1) + \sigma_2^2(t, S_t^2) - 2\rho(t, S_t^1, S_t^2)\sigma_1^2(t, S_t^1)\sigma_2^2(t, S_t^2)|S_t^{12} \right] \\
+            & = \sigma_{12}^2(t, S_t^{12})
+            \end{align*}
+            \item<+-> Where $\mathbb{Q}^f$ is the risk neutral measure associated to $S^2$.
+            \begin{align*}
+            \dfrac{d\mathbb{Q}^{f}}{d\mathbb{Q}} = \dfrac{S_T^{2}}{S_0^{2}} \exp \left(
+            \int_0^{T} (r_t^{2} - r_t^{d}) \: dt \right)
+            \end{align*}
+		\end{itemize}
+    \end{frame}
+    
+    \subsection{Calibration condition}
+    \begin{frame}[t]{Proof}
+    \begin{itemize}
+    \item<+-> Applying Ito's formula:
+    	\begin{align*}
+        \dfrac{dS^{12}_{t}}{S^{12}_{t}}  &= (r_t^2 - r_t^1)\:dt + \sigma_1 \:dW_t^1 - \sigma_2 \: dW_t^2\\ 
+        &+ \sigma_2^2 \:dt -\sigma_1\sigma_2 \: d \left\langle W^1,W^2 \right\rangle_t \\
+         &= (r^{2}_t - r^{1}_t) \:dt + \sigma_1 \left(t, S^{1}_t \right)\:dW_t^{1,f} - \sigma_2(t, S_t^{2})\:dW_t^{2,f}
+    	\end{align*}
+    \item<+-> where:
+    	\begin{align*}
+    W_t^{1,f} &= W_t^{1} - \int_0^t \rho(s, S_s^{1}, S_s^{2}) \sigma_2(s, S_s^{2}) \: ds \\
+W_t^{2,f} &= W_t^{2} - \int_0^t \sigma_2(s, S_s^{2}) \: ds
+    	\end{align*}
+    are (by Girsanov Theorem and the Novikov's condition) Brownian motions under the risk neutral measure $\mathbb{Q}^{f}$
+	\end{itemize}
+    \end{frame}
+    \begin{frame}[t]{Proof}
+    \begin{itemize}
+    \item <+-> We consider now the Brownian Motion under $\mathbb{Q}^{f}$ defined as:
+    \begin{align*}
+    W_t^{f} = \int_0^{t}{ \frac{\sigma_1(s,S_s^1)\:dW_s^{1,f} - \sigma_2(s, S_s^{2})\:dW_s^{2,f}}{a_s} \:ds}
+    \end{align*}
+    where $a_t^2 = \sigma_1^2(t, S_t^1) + \sigma_2^2(t, S_t^2) - \rho(t, S_t^1, S_t^2)\sigma_1^2(t, S_t^1)\sigma_2^2(t, S_t^2)$
+    \item<+->Thus
+    \begin{align*}
+    \dfrac{dS^{12}_{t}}{S^{12}_{t}} = (r_t^{2} - r_t^{1}) dt + a_t dW_t^f
+    \end{align*}
+    \end{itemize}
+    \end{frame}
+    \begin{frame}[t]{Proof}
+    \begin{itemize}
+    \item <+-> We have:
+    \begin{align*}
+        \dfrac{dS^{12}_{t}}{S^{12}_{t}} &= (r_t^{2} - r_t^{1}) dt + a_t dW_t^f\\
+        \dfrac{dS^{12}_{t}}{S^{12}_{t}} &= (r_t^{2} - r_t^{1}) dt + \sigma_{12}(t,S_t^{12}) dW_t^f
+    \end{align*}
+    \item<+->To end the proof, we use the Gyongy's theorem and thus we have:
+    \begin{align*}
+    	\mathbb{E}(a_t^2 | S_t^{12}) = \sigma_{12}^2
+    \end{align*}
+    which is equivalent to the calibration requirement
+\begin{align*}
+            & \mathbb{E}^{\mathbb{Q}^f}_{\rho} \left[ \sigma_1^2(t, S_t^1) + \sigma_2^2(t, S_t^2) - 2\rho(t, S_t^1, S_t^2)\sigma_1^2(t, S_t^1)\sigma_2^2(t, S_t^2)|S_t^{12} \right] \\
+            & = \sigma_{12}^2(t, S_t^{12})
+            \end{align*}
+    \end{itemize} 
+    \end{frame}
+    \begin{frame}[t]{The FX triangle calibration problem}
+    \begin{itemize}
+    \item Let us now pick two functions $a(t,S^1,S^2)$ and $b(t,S^1,S^2)$ such that $b(t,S^1,S^2)$ does not vanish and
+\begin{align*}\label{ABequation}
+a(t,S^1,S^2) + b(t,S^1,S^2)\rho(t,S^1,S^2) \equiv f\left(t,\frac{S^1}{S^2}\right)
+\end{align*}
+	\item<+-> Then:
+{\scriptsize
+\begin{align*}
+\sigma_{12}^2(t,\frac{S_t^1}{S_t^2}) 
+&= \mathbb{E}_\rho^{\mathbb{Q}^f}\left[\sigma_1^2(t,S_t^1) + \sigma_2^2(t,S_t^2) + 2\frac{a(t,S_t^1,S_t^2)}{b(t,S_t^1,S_t^2)}\sigma_1 (t,S_t^1)\sigma_2(t,S_t^2)|\frac{S_t^1}{S_t^2}\right] 
+\nonumber\\
+&\quad - 2(a+b\rho)\left(t,\frac{S_t^1}{S_t^2}\right)\mathbb{E}_\rho^{\mathbb{Q}^f}\left[\frac{\sigma_1(t,S_t^1)\sigma_2(t,S_t^2)}{b(t,S_t^1,S_t^2)}|\frac{S_t^1}{S_t^2}\right]
+\end{align*}
+}
+	 As consequence $\rho = \rho_{(a,b)}$ satisfies $\rho_{(a,b)} \in \mathcal{C}$ and
+\end{itemize}
+{\scriptsize
+\begin{align*}
+&\rho_{(a,b)}(t,S_t^1,S_t^2) = -\frac{ - a(t,S_t^1,S_t^2) }{b(t,S_t^1,S_t^2)} + \frac{1}{b(t,S_t^1,S_t^2)} \nonumber\\ & \left(
+ \frac{\mathbb{E}_{\rho(a,b)}^{\mathbb{Q}^f}\left[\sigma_1^2(t,S_t^1) + \sigma_2^2(t,S_t^2) + 2\frac{a(t,S_t^1,S_t^2)}{b(t,S_t^1,S_t^2)}\sigma_1 (t,S_t^1)\sigma_2(t,S_t^2)|\frac{S_t^1}{S_t^2}-\sigma_{12}^2(t,\frac{S_t^1}{S_t^2})\right]}{\mathbb{E}_\rho^{\mathbb{Q}^f}[\frac{\sigma_1(t,S_t^1)\sigma_2(t,S_t^2)}{b(t,S_t^1,S_t^2)}|\frac{S_t^1}{S_t^2}]}\right)
+\end{align*}
+}
+    
+    \end{frame}
+    
+    \subsection{Numerical solution}
+    \begin{frame}[t]{Numerical solution}
+    \begin{itemize}
+    \item <+-> A numerical solution can be found using the particle method:
+    
+	\begin{enumerate}
+	\item Initialize k = 1 and set $\rho_{(a,b)}(t,S_t^1,S_t^2) = \frac{\sigma_1^2(0,S^1)+\sigma_1^2(0,S^1)-\sigma_{12}^2(0,\frac{S^1}{S^2})}{2\sigma_1^2(0,S^1)\sigma_2^2(0,S^2)}$ for all $t \in [t_0 = 0; t_i]$
+	\item Simulate $(S_t^{1,i},S_t^{2,i})_{1\leq i \leq N}$ from $t_{k-1}$ to $t_k$ using a discretization scheme
+\item For all $S^{12}$ in a grid $G_{t_k}$ of cross rate values, compute
+\begin{align*}
+f(t_k, S^{12}) &= \frac{E_{t_k}^{num}(S^{12}) - \sigma^{12}(t_k,S^{12})}{2E_{t_k}^{den}(S^{12})}
+\end{align*}
+interpolate and extrapolate $f(t_k,.)$, for instance using cubic splines, and, for all $t \in [t_k, t_{k+1}]$, set
+\begin{align*}
+\rho_{(a,b)}(t,S^1,S^2)=\frac{1}{b(t,S^1,S^2)}\left(f\left(t_k,\frac{S^1}{S^2}\right)-a(t,S^1,S^2)\right)
+\end{align*}
+\item Set $k := k +1$. Iterate steps 2 and 3 up the maturity date $T$.
+	\end{enumerate}
+    \end{itemize}
+    \end{frame}
+    
+	\section{Conclusion} % (fold)
+	\label{sec:conclusion}
+	
+	\begin{frame}[t]{Conclusion}
+		\begin{itemize}
+			\item<+-> General Background knowledge acquired
+			\item<+-> Proof and understanding of the fundamental theorems and concepts
+			\item<+-> Capable of deepening the studies and of starting some numerical analysis
+		\end{itemize}
+	\end{frame}
+	%--- Next Frame ---%
+	\begin{frame}[c]{End}
+		\begin{center}
+		\Huge Thanks
+		\end{center}
+	\end{frame}
+	%--- Next Frame ---%
+	% section conclusion (end)
+\end{document}
